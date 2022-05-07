@@ -1,0 +1,31 @@
+.winnerHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-color: white;
+}
+
+@media screen and (max-width:600px) {
+  div.headerRight {
+      width: 30%;
+      justify-content: center;
+    }
+}
+
