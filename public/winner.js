@@ -8,18 +8,30 @@ reloadButton.addEventListener("click",function () {
   reloadVideo(tiktokDiv);
 });
 
-
+sendGetRequest("/getWinner").then(function(res) {
+    showWinningVideo(res.url);
+}).catch((err)=>{console.log(err);});
 
 // always shows the same hard-coded video.  You'll need to get the server to 
 // compute the winner, by sending a 
 // GET request to /getWinner,
 // and send the result back in the HTTP response.
 
-showWinningVideo()
-
-function showWinningVideo() {
-  
-  let winningUrl = "https://www.tiktok.com/@catcatbiubiubiu/video/6990180291545468166";
+function showWinningVideo(winningUrl) {
   addVideo(winningUrl, divElmt);
   loadTheVideos();
+}
+
+async function sendGetRequest(url) {
+  params = {
+    method: 'GET', 
+     };
+  
+  let response = await fetch(url,params);
+  if (response.ok) {
+    let data = await response.json();
+    return data;
+  } else {
+    throw Error(response.status);
+  }
 }

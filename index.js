@@ -18,7 +18,6 @@ const bodyParser = require('body-parser');
 /* might be a useful function when picking random videos */
 function getRandomInt(max) {
   let n = Math.floor(Math.random() * max);
-  // console.log(n);
   return n;
 }
 
@@ -57,6 +56,20 @@ app.get("/getTwoVideos", function(req, res, next) {
     }).catch((err)=>{res.send(err);});
 });
 
+app.post("/insertPref", function(req, res, next) {
+    let ob = req.body;
+    db.run("insert into PrefTable (better,worse) values (?,?)", [ob.better, ob.worse]).then(()=>{
+        dumpPrefTable().then((tab)=>{
+            console.log(tab);
+            if (tab.length < 15) {
+                res.send("continue");
+            } else {
+                res.send("pick winner");
+            }
+        });
+    }).catch((err)=>{res.send(err);});
+});
+
 
 app.get("/getWinner", async function(req, res) {
   console.log("getting winner");
@@ -64,10 +77,11 @@ app.get("/getWinner", async function(req, res) {
   // change parameter to "true" to get it to computer real winner based on PrefTable 
   // with parameter="false", it uses fake preferences data and gets a random result.
   // winner should contain the rowId of the winning video.
-  let winner = await win.computeWinner(8,false);
-
+  let winner = await win.computeWinner(8, false);
+  console.log(winner);
+  let table = await dumpTable();
   // you'll need to send back a more meaningful response here.
-  res.json({});
+  res.json(table[winner]);
   } catch(err) {
     res.status(500).send(err);
   }
@@ -93,6 +107,13 @@ const listener = app.listen(3000, function () {
 // an async function to get the whole contents of the database 
 async function dumpTable() {
     const sql = "select * from VideoTable";
+  
+    let result = await db.all(sql);
+    return result;
+}
+
+async function dumpPrefTable() {
+    const sql = "select * from PrefTable";
   
     let result = await db.all(sql);
     return result;

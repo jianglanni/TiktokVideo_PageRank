@@ -39,6 +39,10 @@ main {
   color: rgb(180,180,180);
 }
 
+.loved {
+    color: rgba(238, 29, 82, 0.9);
+}
+
 footer {
   width: 100%;
   display: flex;
