@@ -22,6 +22,18 @@ main {
   background-color: white;
 }
 
+.video {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#nick {
+    font-family: 'Inter', sans-serif;
+    color: #F1F1F1;
+    font-weight: 600;
+    font-size: 25px;
+}
 
 @media screen and (max-width:600px) {
   div.headerRight {

@@ -10,7 +10,7 @@ reloadButton.addEventListener("click",function () {
 
 sendGetRequest("/getWinner").then(function(res) {
     showWinningVideo(res.url);
-    document.getElementById("big_title").textContent += res.nickname;
+    document.getElementById("nick").textContent = res.nickname;
 }).catch((err)=>{console.log(err);});
 
 // always shows the same hard-coded video.  You'll need to get the server to 
