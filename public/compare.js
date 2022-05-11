@@ -11,7 +11,7 @@ for (let i=0; i<2; i++) {
 } // for loop
 
 let video_rows = [-1, -1];
-let choice = -1;
+let choice = -1; // for send post req to insertPref
 let enemy = -1;
 
 sendGetRequest("/getTwoVideos").then((video_list)=> {
@@ -43,6 +43,8 @@ function add_listener(target) {
 }
 
 function next_trigger() { 
+    if (choice == -1)
+        return;
     sendPostRequest("/insertPref", {"better": video_rows[choice], "worse": video_rows[enemy]}).then((res)=>{
         if (res == "continue") {
             location.reload();
