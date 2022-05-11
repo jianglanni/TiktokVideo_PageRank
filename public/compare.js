@@ -6,6 +6,7 @@ for (let i=0; i<2; i++) {
   let reload = reloadButtons[i]; 
   reload.addEventListener("click",function() { reloadVideo(videoElmts[i]) });
   heartButtons[i].classList.add("unloved");
+  heartButtons[i].lastElementChild.style.display = "none";
   add_listener(i);
 } // for loop
 
@@ -28,9 +29,13 @@ function set_pref(target) {
     enemy = (target+1) % 2;
     heartButtons[target].classList.remove("unloved");
     heartButtons[target].classList.add("loved");
+    heartButtons[target].firstElementChild.style.display = "none";
+    heartButtons[target].lastElementChild.style.display = "inline";
 
     heartButtons[enemy].classList.remove("loved");
     heartButtons[enemy].classList.add("unloved");
+    heartButtons[enemy].lastElementChild.style.display = "none";
+    heartButtons[enemy].firstElementChild.style.display = "inline";
 }
 
 function add_listener(target) {

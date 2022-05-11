@@ -50,6 +50,14 @@ footer {
   justify-content: flex-end;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
+.show {
+    display: inline;
+}
+
 
 @media screen and (max-width:750px) {
 
