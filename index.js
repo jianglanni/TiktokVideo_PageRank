@@ -79,9 +79,10 @@ app.get("/getWinner", async function(req, res) {
   // winner should contain the rowId of the winning video.
   let winner = await win.computeWinner(8, false);
   console.log(winner);
-  let table = await dumpTable();
+  let table = await db.get("select * from videoTable where rowIdNum=?", [winner]);
   // you'll need to send back a more meaningful response here.
-  res.json(table[winner]);
+  console.log(table);
+  res.json(table);
   } catch(err) {
     res.status(500).send(err);
   }
